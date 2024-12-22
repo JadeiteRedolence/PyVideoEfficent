@@ -18,7 +18,7 @@
 3. 处理完成后，脚本会询问是否删除原始文件。
 
 
-## 特技
+## 特性
 - 使用 Readme_XXX.md 来支持不同的语言，例如 Readme_en.md, Readme_zh.md
 - Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
 - 你可以访问 [https://gitee.com/explore](https://gitee.com/explore) 来了解 Gitee 上的优秀开源项目
