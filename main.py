@@ -1,5 +1,36 @@
-###Your enviroment must have ffmpeg installed
-###Use command "ffmpeg -version" to test ffmpeg if it is installed
+"""
+欢迎使用 PyVideoEfficent - 高级视频压缩工具！
+Welcome to PyVideoEfficent - Advanced Video Compression Tool!
+
+作者/Author: Yuki
+版本/Version: 1.0.0
+构建日期/Build Date: 2024.12.28
+
+这是一个简单易用但功能强大的视频压缩工具。它可以:
+This is an easy-to-use yet powerful video compression tool. It can:
+
+✓ 使用先进的AV1编码器压缩视频,同时保持高画质
+  Compress videos using advanced AV1 codec while maintaining high quality
+✓ 利用NVIDIA显卡加速处理,速度更快
+  Leverage NVIDIA GPU acceleration for faster processing  
+✓ 智能分析视频并自动选择最佳压缩设置
+  Intelligently analyze videos and choose optimal compression settings
+✓ 支持批量处理多个文件
+  Support batch processing of multiple files
+✓ 自动管理输出文件
+  Automatically manage output files
+
+使用前请确保:
+Before using, please ensure:
+
+1. 已安装FFmpeg(在命令行输入"ffmpeg -version"测试)
+   FFmpeg is installed (test by typing "ffmpeg -version" in command line)
+2. 拥有支持AV1编码的NVIDIA显卡
+   You have an NVIDIA GPU that supports AV1 encoding
+
+详细使用说明请参考README.md文件
+For detailed instructions, please refer to README.md
+"""
 
 from os import system as cmd, chdir, getcwd, popen as rcmd, rename, remove, _exit as quit
 from os.path import split as sp, splitext as spt, basename as bn, exists, expanduser
@@ -107,7 +138,7 @@ def get_vcodec(vp):
 
 def get_metadata(title):
     current_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-    author = 'PyVideoEfficent'
+    author = 'Ludwig Von Jensen'
     description = 'This video has been proccesed by AV1 Encoder'
     metadata_parts = [
         '-metadata', f'artist=\'{author}\'',
@@ -178,7 +209,9 @@ def main():
             else:
                 print('Files not deleted')
                 
-        if input('Continue? (y/n)： ') != 'y':
+        choice = input('\nWould you like to process more videos? (y/n): ')
+        if choice.lower() != 'y':
+            print('\nThank you for using PyVideoEfficient!')
             break
 
 if __name__ == '__main__':
