@@ -138,7 +138,7 @@ def get_vcodec(vp):
 
 def get_metadata(title):
     current_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-    author = 'Ludwig Von Jensen'
+    author = 'PyVideoEfficent'
     description = 'This video has been proccesed by AV1 Encoder'
     metadata_parts = [
         '-metadata', f'artist=\'{author}\'',
