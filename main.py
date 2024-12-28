@@ -2,8 +2,9 @@
 欢迎使用 PyVideoEfficent - 高级视频压缩工具！
 Welcome to PyVideoEfficent - Advanced Video Compression Tool!
 
-作者/Author: Yuki
-版本/Version: 1.0.0
+作者/Author: Volkath@amazoncloud
+仓库/Repository: https://gitee.com/amazoncloud/py-video-efficent
+版本/Version: 1.0.1
 构建日期/Build Date: 2024.12.28
 
 这是一个简单易用但功能强大的视频压缩工具。它可以:
@@ -138,7 +139,7 @@ def get_vcodec(vp):
 
 def get_metadata(title):
     current_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-    author = 'PyVideoEfficent'
+    author = 'PyVideoEfficent v1.0.1 Build 2024.12.28'
     description = 'This video has been proccesed by AV1 Encoder'
     metadata_parts = [
         '-metadata', f'artist=\'{author}\'',
