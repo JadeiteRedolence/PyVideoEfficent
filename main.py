@@ -167,7 +167,7 @@ def gen_command(i):
 
     # Build ffmpeg command
     ffmpeg_cmd = (
-        f'ffmpeg -hide_banner -v info '
+        f'ffmpeg -hide_banner -v info -strict -2 '
         f'-i \'{i}\' '
         f'-f mp4 '
         f'-bufsize 32768 '
@@ -213,12 +213,12 @@ def main():
             # Handle file deletion
             origin_list = '\n'.join(f'{i+1}.{v}' for i,v in enumerate(video_sets))
             powershell('Start-Process .')
-            if input(f'[Command] Do you want to delete all the original files? \n{origin_list}\n\nYour Choice (y/n）： ') == 'y':
+            if input(f'\n\n[Command] Do you want to delete all the original files? \n{origin_list}\n\nYour Choice (y/n）： ') == 'y':
                 [exec_try_delete(file) for file in video_sets]
             else:
                 print('Files not deleted')
                 
-        choice = input('\nWould you like to process more videos? (y/n): ')
+        choice = input('\n[Command] Would you like to process more videos? (y/n): ')
         if choice.lower() != 'y':
             print('\nThank you for using PyVideoEfficient!')
             break
