@@ -51,6 +51,11 @@ compress_rate = 0.5
 min_compress_rate = 0.5
 max_compress_rate = 1.5
 
+#metadata
+author = 'Volkath@amazoncloud'
+encoder = 'PyVideoEfficent v1.0.1 Build 2024.12.28'
+description = f'This video has been proccesed by {encoder}'
+
 # Regular expression pattern for invalid filename characters:
 # [^\w\s\-\.]+ means:
 # ^ - Match any character that is NOT in the following set
@@ -73,9 +78,8 @@ def str_replace(s):
 def validate_filename(i):
     global invalid_filename_rule
     name = spt(i)[0]
-    fmt = spt(i)[-1]
-    new_filename = sub(invalid_filename_rule, '_', name) + fmt
-    new_filename = str_replace(new_filename)
+    new_filename = sub(invalid_filename_rule, '_', name)
+    new_filename = str_replace(new_filename) + '.mp4'
     rename(i, new_filename)
     return new_filename
 
@@ -138,16 +142,15 @@ def get_vcodec(vp):
     return codec_reslt.read().strip()
 
 def get_metadata(title):
+    global author, encoder, description
     current_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-    author = 'Volkath@amazoncloud'
-    encoder = 'PyVideoEfficent v1.0.1 Build 2024.12.28'
-    description = 'This video has been proccesed by AV1 Encoder'
     metadata_parts = [
         '-metadata', f'artist=\'{author}\'',
         '-metadata', f'description=\'{description}\'',
-        '-metadata', f'proccess_time=\'{current_time}\'',
+        '-metadata', f'\'proccess_time={current_time}\'',
         '-metadata', f'title=\'{title}\'',
-        '-metadata', f'software=\'{encoder}\''
+        '-metadata', f'\'software={encoder}\' ',
+        '-metadata', f'date=\'{current_time}\' '
     ]
     return ' '.join(metadata_parts)
 
@@ -155,13 +158,16 @@ def gen_command(i):
     # Get metadata and calculate target bitrate
     metadata = get_metadata(i)
     origin_bitrate = get_video_bitrate(i)
-    target_bitrate = min(max(int(origin_bitrate * compress_rate), 1500), 15000)
+    if origin_bitrate > 1500:
+        target_bitrate = min(max(int(origin_bitrate * compress_rate), 1500), 15000)
+    else:
+        target_bitrate = origin_bitrate*0.9
     
     output_filename = f"AV1compressed__{spt(i)[0]}.mp4"
 
     # Build ffmpeg command
     ffmpeg_cmd = (
-        f'ffmpeg -hide_banner '
+        f'ffmpeg -hide_banner -v info '
         f'-i \'{i}\' '
         f'-f mp4 '
         f'-bufsize 32768 '
@@ -170,14 +176,14 @@ def gen_command(i):
         f'{metadata} '
         f'-c:a copy '
         f'-b:v {target_bitrate}k '
-        f'-y "{output_filename}"'
+        f'-y \'{output_filename}\' '
     )
     
     return ffmpeg_cmd
 
 def exec_video_compress(i):
     current_command = gen_command(i)
-    print(f'\n\nCurrent Command:\n{current_command}\n')
+    print(f'\n\nCurrent Command:\n{current_command}\n\n')
     powershell(current_command)
 
 def exec_try_delete(file):
