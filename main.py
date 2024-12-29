@@ -139,13 +139,15 @@ def get_vcodec(vp):
 
 def get_metadata(title):
     current_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-    author = 'PyVideoEfficent v1.0.1 Build 2024.12.28'
+    author = 'Volkath@amazoncloud'
+    encoder = 'PyVideoEfficent v1.0.1 Build 2024.12.28'
     description = 'This video has been proccesed by AV1 Encoder'
     metadata_parts = [
         '-metadata', f'artist=\'{author}\'',
         '-metadata', f'description=\'{description}\'',
         '-metadata', f'proccess_time=\'{current_time}\'',
-        '-metadata', f'title=\'{title}\''
+        '-metadata', f'title=\'{title}\'',
+        '-metadata', f'software=\'{encoder}\''
     ]
     return ' '.join(metadata_parts)
 
@@ -160,7 +162,7 @@ def gen_command(i):
     # Build ffmpeg command
     ffmpeg_cmd = (
         f'ffmpeg -hide_banner '
-        f'-i "{i}" '
+        f'-i \'{i}\' '
         f'-f mp4 '
         f'-bufsize 32768 '
         f'-threads 32 '
