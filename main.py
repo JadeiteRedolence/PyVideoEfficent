@@ -220,10 +220,11 @@ def main():
                 
         choice = input('\n[Command] Would you like to process more videos? (y/n): ')
         if choice.lower() != 'y':
-            print('\nThank you for using PyVideoEfficient!')
+            print("")
+            print('Thank you for using PyVideoEfficient!'.center(100,'*'))
             break
 
 if __name__ == '__main__':
     main()
-    print('\nVideo Efficient Convert Program Ended.')
+    sleep(3)
     quit(0)
